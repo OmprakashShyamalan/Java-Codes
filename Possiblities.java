@@ -5,10 +5,10 @@ public class Possiblities {
 	public static void main(String args[])
 	{
 		Scanner scan=new Scanner(System.in);
-		int n=scan.nextInt();
-		int[] arr=new int[n];
-		for(int i=0;i<n;i++)
-			arr[i]=scan.nextInt();
+		String s=scan.nextLine();
+		int n=s.length();
+		char [] arr=new char[n];
+		arr=s.toCharArray();
 		int a=scan.nextInt();
 		int b=scan.nextInt();
 		if(b<a)
@@ -20,6 +20,7 @@ public class Possiblities {
 		int p=(int)Math.pow(2, n);
 		int k=0;
 		StringBuffer str[]=new StringBuffer[p];
+		String st[]=new String[p];
 		for(int i=1;i<p;i++)
 		{
 			int ta[]=d2b(i,n);
@@ -36,23 +37,33 @@ public class Possiblities {
 					if(ta[j]==1)
 					//System.out.print(arr[j]+" ");
 						if(str[k]!=null)
-							str[k].append(" "+String.valueOf(arr[j]));
+							str[k].append(String.valueOf(arr[j]));
 						else
 						{
-							String s=String.valueOf(arr[j]);
-							str[k]=new StringBuffer(s);
+							String s1=String.valueOf(arr[j]);
+							str[k]=new StringBuffer(s1);
 						}
+				st[k]=str[k].toString();
 				k++;
 			}
 		}
-		String st[]=new String[k];
-		for(int i=0;i<k;i++)
-			st[i]=str[i].toString();
-		for (int i = 0; i < n; i++) 
+		for (int i = 0; i < k; i++) 
         {
-            for (int j = i + 1; j < n; j++) 
+            for (int j = i + 1; j < k; j++) 
             {
-                if (st[i].compareTo(st[j])>0) 
+                if (st[i].length()>st[j].length()) 
+                {
+                    String temp = st[i];
+                    st[i] = st[j];
+                    st[j] = temp;
+                }
+            }
+        }
+		for (int i = 0; i < k; i++) 
+        {
+            for (int j = i + 1; j < k; j++) 
+            {
+                if (st[i].compareTo(st[j])>0 &&	!(st[i].length()<st[j].length())) 
                 {
                     String temp = st[i];
                     st[i] = st[j];
